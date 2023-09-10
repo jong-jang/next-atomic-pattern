@@ -1,0 +1,15 @@
+import styles from './Input.module.scss';
+import clsx from 'clsx';
+
+export function Input({ type = 'text', placeholder = 'text', onChange, value, style, className }) {
+	return (
+		<input
+			type={type}
+			className={clsx(styles.input, className)}
+			placeholder={placeholder}
+			value={value}
+			onChange={(e) => onChange(e.target.value)}
+			style={style}
+		/>
+	);
+}
