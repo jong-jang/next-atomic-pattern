@@ -3,8 +3,6 @@ import axios from 'axios';
 import SwiperWrap from '@/components/organisms/Swiper/Swiper';
 
 export default function Home({ meals, category }) {
-	console.log('카테고리명', category);
-	console.log('카테고리명 배열데이터', meals);
 	return (
 		<>
 			<Head>
