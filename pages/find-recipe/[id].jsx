@@ -6,12 +6,14 @@ import { useEffect, useState } from 'react';
 import { Title } from '@/components/atoms/text/Title';
 import { Pic } from '@/components/atoms/pic/Pic';
 import { Table } from '@/components/atoms/Table/Table';
+import { List } from '@/components/atoms/List/List';
 
 function Detail() {
 	const router = useRouter();
 	const { id } = router.query;
 	const { data } = useRecipeById(id);
 	const [TableData, setTableData] = useState([]);
+	const [ListData, setListData] = useState([]);
 
 	useEffect(() => {
 		if (data) {
@@ -25,6 +27,12 @@ function Detail() {
 			}));
 
 			setTableData(ingredients);
+
+			let instructions = data.strInstructions
+				.split('\r\n')
+				.map((text) => (text.includes('.\t') ? text.replace('.\t', '+').split('+')[1] : text))
+				.filter((text) => text !== '');
+			setListData(instructions);
 		}
 	}, [data]);
 
@@ -37,6 +45,7 @@ function Detail() {
 						<Pic imgSrc={data.strMealThumb} />
 					</div>
 					<Table data={TableData} title={data.strMeal} />
+					<List data={ListData} type={'ol'} />
 				</>
 			)}
 		</section>
